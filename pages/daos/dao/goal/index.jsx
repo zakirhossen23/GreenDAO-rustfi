@@ -183,7 +183,11 @@ export default function Goal() {
                     <div>{listItem.Description.substring(0, 120)}</div>
                   </div>
                 </div>
-                <div className="flex justify-between align-center flex-row-reverse">                               
+                <div className="flex justify-between align-center ">                               
+                <div className="flex items-center font-bold">
+                    {LeftDate(GoalURI.End_Date, listItem.status)} left
+                  </div>
+                  
                   <NavLink href={`/daos/dao/goal/ideas?[${listItem.ideasId}]`}>
                     <Button iconleft>
                       <ControlsChevronRight />

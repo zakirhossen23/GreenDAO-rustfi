@@ -208,7 +208,7 @@ export default function CreateDao() {
         <div className={`${styles.title} gap-8 flex flex-col`}>
           <h1 className="text-moon-32 font-bold">Create DAO</h1>
           <p className="text-trunks">
-            An dao will have its own page where people can submit their projects.
+            An dao will have its own page where people can submit their ideas.
           </p>
         </div>
         <div className={styles.divider}></div>
