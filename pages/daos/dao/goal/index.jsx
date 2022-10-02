@@ -13,7 +13,7 @@ import { Button } from "@heathmont/moon-core-tw";
 export default function Goal() {
   //Variables
   const [list, setList] = useState([]);
-  const [GoalURI, setGoalURI] = useState({   goalId:"",Title:"",Description: "",Budget: "",StructureLeft: [],StructureRight: [],logo: "" });
+  const [GoalURI, setGoalURI] = useState({   goalId:"",Title:"",Description: "",Budget: "",End_Date:"",StructureLeft: [],StructureRight: [],wallet:"",logo: "" });
   const [goalId, setGoalID] = useState(-1);
 
 
@@ -62,34 +62,35 @@ export default function Goal() {
 
         const goalURI = JSON.parse(JSON.parse(await window.nearcontract.goal_uri({ "goal_id": Number(id) }))[1]); //Getting total goal (Number)
 
-        // const totalGoals =JSON.parse(await window.nearcontract.get_all_goals_by_goal_id({"_goal_id": Number(id)})); //Getting total goal (Number)
-        // const arr = [];
-        // for (let i = 0; i < Object.keys(totalGoals).length; i++) {
-        //   //total goal number Iteration
-        //   const goalid = Object.keys(totalGoals[i])[i];
-        //   const object =JSON.parse(totalGoals[goalid]);
-        //   if (object) {
+        const totalIdeas =JSON.parse(await window.nearcontract.get_all_ideas_by_goal_id({"_goal_id": Number(id)})); //Getting total goal (Number)
+        const arr = [];
+        for (let i = 0; i < Object.keys(totalIdeas).length; i++) {
+          //total goal number Iteration
+          const ideasId = Object.keys(totalIdeas[i])[i];
+          const object =JSON.parse(totalIdeas[ideasId]);
+          if (object) {
            
-        //     arr.push({
-        //       //Pushing all data into array
-        //       goalId: goalid,
-        //       Title: object.properties.Title.description,
-        //       Description: object.properties.Description.description,
-        //       Budget: object.properties.Budget.description,
-        //       StructureLeft: object.properties.StructureLeft.description,
-        //       StructureRight: object.properties.StructureRight.description,
-        //       logo: object.properties.logo.description.url
-        //     });
-        //   }
-        // }
-        // setList(arr);
+            arr.push({
+              //Pushing all data into array
+              ideasId: ideasId,
+              Title: object.properties.Title.description,
+              Description: object.properties.Description.description,
+              wallet:object.properties.wallet.description,
+              logo: object.properties.logo.description.url,
+              allfiles:object.properties.allfiles
+            });
+          }
+        }
+        setList(arr);
         setGoalURI({
           goalId: Number(id),
           Title: goalURI.properties.Title.description,
           Description: goalURI.properties.Description.description,
-          Budget: goalURI.properties.Budget.description,
+          Budget: goalURI.properties.Budget.description,          
+          End_Date: goalURI.properties.End_Date?.description,
           StructureLeft: goalURI.properties.StructureLeft.description,
           StructureRight: goalURI.properties.StructureRight.description,
+          wallet: goalURI.properties?.wallet?.description,
           logo: goalURI.properties.logo.description.url
         })
 
@@ -148,6 +149,7 @@ export default function Goal() {
             <NavLink href="?q=This Month">
               <a className="DonationBarLink tab block px-3 py-2">This Month</a>
             </NavLink>
+            {(GoalURI.wallet !== window.accountId)?(<> 
             <NavLink href={`/CreateIdeas?[${goalId}]`}>
               <Button style={{ width: '135px', position: 'absolute', right: '1rem' }} iconLeft>
                 <ControlsPlus className="text-moon-24" />
@@ -157,7 +159,7 @@ export default function Goal() {
                   </div>
                 </div>
               </Button>
-            </NavLink>
+              </NavLink></>):(<></>)}
           </div>
 
         </div>
@@ -178,19 +180,14 @@ export default function Goal() {
                   </span>
                   <div className="flex flex-col gap-2 overflow-hidden text-left">
                     <div className="font-bold">{listItem.Title}</div>
-                    <div>Budget {listItem.Budget} NEAR</div>
+                    <div>{listItem.Description.substring(0, 120)}</div>
                   </div>
                 </div>
-                <div className="flex justify-between align-center"> 
-                <div className="flex items-center font-bold">
-                    {listItem.StructureRight.map((item,id)=>(<>
-                      <div className="mr-4"> {item}</div>
-                    </>))}
-                  </div>                 
-                  <NavLink href={`/goals/goal/goal?[${listItem.goalId}]`}>
+                <div className="flex justify-between align-center flex-row-reverse">                               
+                  <NavLink href={`/daos/dao/goal/ideas?[${listItem.ideasId}]`}>
                     <Button iconleft>
                       <ControlsChevronRight />
-                      Go to Goal
+                      Go to Ideas
                     </Button>
                   </NavLink>
                 </div>

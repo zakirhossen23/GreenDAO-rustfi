@@ -102,11 +102,11 @@ const Slideshow = (images = []) => {
       </div>
     ),
   };
-  if ((images["images"].length !== 0) & (images !== undefined)) {
+  if ((images["images"]?.length !== 0) && (images !== undefined)&&  (images['images'] !== undefined)) {
     return (
-      <div>
+      <div style={{width: '45rem'}}>
         <Zoom {...zoomInProperties}>
-          {images["images"].map((each, index) => Slider(each, index))}
+          {images["images"]?.map((each, index) => Slider(each, index))}
         </Zoom>
       </div>
     );

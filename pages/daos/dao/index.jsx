@@ -76,6 +76,7 @@ export default function DAO() {
               Title: object.properties.Title.description,
               Description: object.properties.Description.description,
               Budget: object.properties.Budget.description,
+              End_Date: daoURI.properties.End_Date.description,
               StructureLeft: object.properties.StructureLeft.description,
               StructureRight: object.properties.StructureRight.description,
               logo: object.properties.logo.description.url
@@ -87,7 +88,6 @@ export default function DAO() {
           Title: daoURI.properties.Title.description,
           Description: daoURI.properties.Description.description,
           Start_Date: daoURI.properties.Start_Date.description,
-          End_Date: daoURI.properties.End_Date.description,
           logo: daoURI.properties.logo.description,
           wallet: daoURI.properties.wallet.description,
           typeimg: daoURI.properties.typeimg.description,
@@ -149,7 +149,7 @@ export default function DAO() {
             <NavLink href="?q=This Month">
               <a className="DonationBarLink tab block px-3 py-2">This Month</a>
             </NavLink>
-            <NavLink href={`/CreateGoal?[${daoId}]`}>
+            {(DaoURI.wallet === window.accountId)?(<> <NavLink href={`/CreateGoal?[${daoId}]`}>
               <Button style={{ width: '135px', position: 'absolute', right: '1rem' }} iconLeft>
                 <ControlsPlus className="text-moon-24" />
                 <div className="card BidcontainerCard">
@@ -158,7 +158,8 @@ export default function DAO() {
                   </div>
                 </div>
               </Button>
-            </NavLink>
+            </NavLink></>):(<></>)}
+           
           </div>
 
         </div>
@@ -184,7 +185,7 @@ export default function DAO() {
                 </div>
                 <div className="flex justify-between align-center"> 
                 <div className="flex items-center font-bold">
-                    {listItem.StructureRight.map((item,id)=>(<>
+                    {listItem.StructureLeft.map((item,id)=>(<>
                       <div className="mr-4"> {item}</div>
                     </>))}
                   </div>                 

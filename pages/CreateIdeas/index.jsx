@@ -37,29 +37,13 @@ export default function CreateIdeas() {
   });
 
 
-  const [Budget, BudgetInput] = UseFormInput({
-    defaultValue: "",
-    type: "text",
-    placeholder: "Budget",
-    id: "budget",
-  });
 
-  let StructureLeft={
-    0:"Representives Berlin",
-    1:"Community",
-    2:"Childeren"
-  } 
-  let StructureRight={
-    0:"20%",
-    1:"70%",
-    2:"10%"
-  }
   let id = -1;
 
   async function CheckTransaction() {
     let params = (new URL(window.location)).searchParams;
     if (params.get("transactionHashes") !== null) {
-      window.location.href = "/daos";
+      window.location.href = `daos/dao/goal?[${id}]`;
     }
   }
  
@@ -95,19 +79,11 @@ export default function CreateIdeas() {
         Description: {
           type: "string",
           description: IdeasDescription,
-        },    
-        Budget: {
+        },  
+        wallet: {
           type: "string",
-          description: Budget,
-        },
-        StructureLeft:{
-          type: "string",
-          description: Object.values(StructureLeft),
-        },
-        StructureRight:{
-          type: "string",
-          description: Object.values(StructureRight),
-        },
+          description: window.accountId,
+        },       
         logo: {
           type: "string",
           description: allFiles[0],
@@ -119,7 +95,7 @@ export default function CreateIdeas() {
     try {
      
       // Creating Ideas in Rust Smart contract
-      await window.nearcontract.create_ideas({ "_ideas_uri": JSON.stringify(createdObject),"_dao_id": Number(id) }, "60000000000000")
+      await window.nearcontract.create_ideas({ "_ideas_uri": JSON.stringify(createdObject),"_goal_id": Number(id) }, "60000000000000")
 
     } catch (error) {
       console.error(error);
@@ -245,7 +221,7 @@ export default function CreateIdeas() {
                             />
                           ) : (
                             <>
-                              <div className="Ideas-Uploaded-File-Container">
+                              <div className={styles.video}>
 
                                 <span className="Ideas-Uploaded-File-name">
                                   {item.name.substring(0, 10)}...
@@ -268,7 +244,7 @@ export default function CreateIdeas() {
                     size="lg"
                   >
                     <GenericPicture className="text-moon-24" />
-                    Add image
+                    Add Content
                   </Button>
                 </div>
               </div>

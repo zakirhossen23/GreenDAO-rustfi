@@ -4,8 +4,13 @@
 }
 
 .title {
-  width: 720px;
+  width: 760px;
   max-width: 95%;
+}
+
+.tabtitle {
+  width: 60rem;
+  justify-content: space-between;
 }
 
 .divider {

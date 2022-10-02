@@ -42,13 +42,6 @@ export default function CreateDao() {
     id: "startdate",
   });
 
-  const [EndDate, DaoDateInput] = UseFormInput({
-    defaultValue: "",
-    type: "datetime-local",
-    placeholder: "End date",
-    id: "enddate",
-  });
-
   if (isServer()) return null;
 
   //Downloading plugin function
@@ -111,10 +104,6 @@ export default function CreateDao() {
         Start_Date: {
           type: 'string',
           description: StartDate,
-        },
-        End_Date: {
-          type: 'string',
-          description: EndDate,
         },
         logo: {
           type: 'string',

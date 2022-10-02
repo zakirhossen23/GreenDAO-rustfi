@@ -1213,6 +1213,10 @@ video {
   flex-direction: row;
 }
 
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1686,6 +1690,11 @@ video {
   line-height: 1.5rem;
 }
 
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
 .text-\[1rem\] {
   font-size: 1rem;
 }
@@ -1794,6 +1803,11 @@ video {
 .text-dodoria {
   --tw-text-opacity: 1;
   color: rgb(var(--dodoria) / var(--tw-text-opacity));
+}
+
+.text-\[\#0000ff\] {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 255 / var(--tw-text-opacity));
 }
 
 .text-bulma {

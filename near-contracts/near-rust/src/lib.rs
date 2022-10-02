@@ -13,10 +13,12 @@ pub struct Contract {
   //Variables
   _dao_ids: i32,
   _goal_ids: i32,
+  _ideas_ids: i32,
 
   //Variables Multiples
    _dao_uris: HashMap<i32, Vec<String>>,           //_dao_ids          => (Dao)    Dao Wallet + Dao URI   + Finished
-   _goal_uris: HashMap<i32, Vec<String>>,          //_goal_ids         => (Goal)   URI          
+   _goal_uris: HashMap<i32, Vec<String>>,          //_goal_ids         => (Goal)   Dao ID + Goal URI          
+   _ideas_uris: HashMap<i32, Vec<String>>,         //_ideas_ids        => (Ideas)  Goal ID + Ideas URI          
   
 }
 
@@ -26,10 +28,12 @@ impl Default for Contract {
       //Variables
       _dao_ids : 0,
       _goal_ids : 0,
+      _ideas_ids : 0,
 
       //Variables Multiples
       _dao_uris: HashMap::new(), 
       _goal_uris: HashMap::new(), 
+      _ideas_uris: HashMap::new(), 
     }
   }
 }
@@ -116,6 +120,43 @@ impl Contract {
     return json;
   }
 
+ //Ideas
+
+ pub fn create_ideas(&mut self, _ideas_uri: String,_goal_id:&i32) -> i32 {
+  let mut stuff : Vec<String> = Vec::new();
+  stuff.push(_goal_id.to_string());
+  stuff.push(_ideas_uri.to_string());
+
+  self._ideas_uris.insert(self._ideas_uris.len() as i32,stuff);
+  self._ideas_ids += 1;
+  return self._ideas_ids ;
+}
+
+pub fn set_ideas(&mut self, _ideas_id: &i32,_ideas_uri: String) {
+  self._ideas_uris.get_mut(_ideas_id).unwrap()[1] = (*_ideas_uri).to_string(); 
+}
+
+
+pub fn get_all_ideas(&self)-> String{
+  let json = serde_json::to_string(&self._ideas_uris).unwrap();
+  return json;
+}
+
+pub fn get_all_ideas_by_goal_id(&self, _goal_id: &i32)-> String{
+  let mut stuff : HashMap<i32,String> = HashMap::new(); 
+  for  (_k, v) in self._ideas_uris.iter() {
+    if  v[0].to_string() == _goal_id.to_string() {
+      stuff.insert(*_k,v[1].to_string());
+    }
+  }    
+  let json = serde_json::to_string(&stuff).unwrap();
+  return json;
+}
+
+pub fn ideas_uri(&self,ideas_id:&i32)-> String{
+  let json = serde_json::to_string(&self._ideas_uris.get(ideas_id)).unwrap();
+  return json;
+}
 
 
 //Contract

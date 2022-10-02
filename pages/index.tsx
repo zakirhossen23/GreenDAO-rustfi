@@ -37,8 +37,8 @@ export default function Welcome() {
   return (
     <>
       <Head>
-        <title>Hera</title>
-        <meta name="description" content="Hera" />
+        <title>GreenDAO</title>
+        <meta name="description" content="GreenDAO" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>

@@ -11,7 +11,7 @@ export const Header = () => {
     >
       <Link href="/">
         <div className={`px-2 inline-flex ${styles.logo}`}>
-          <Image height={60} width={60} src={logo} alt="Hera" />
+          <Image height={60} width={60} src={logo} alt="GreenDAO" />
         </div>
       </Link>
       <Nav />

@@ -365,7 +365,7 @@ export default function AuctionNFT() {
                   </div>
                   <div className="flex flex-col justify-end flex-1 text-moon-14 text-trunks">
                     99.9% of the proceeds go to the charity. Just 0.1% goes to
-                    Hera.
+                    GreenDAO.
                   </div>
                 </div>
               </Card>

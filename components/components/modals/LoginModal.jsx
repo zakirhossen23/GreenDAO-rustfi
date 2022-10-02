@@ -79,7 +79,7 @@ export default function Login({ show, onHide, redirecting }) {
   async function onClickConnectNear() {
     window.walletConnection.requestSignIn(
       window.nearConfig.contractName,
-      "Hera"
+      "GreenDAO"
     );
   }
   async function onClickConnectedNEAR() {

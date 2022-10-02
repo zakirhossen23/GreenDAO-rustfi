@@ -69,7 +69,6 @@ export default function DAOs() {
               daoId: i,
               Title: object.properties.Title.description,
               Start_Date: object.properties.Start_Date.description,
-              End_Date: object.properties.End_Date.description,
               logo: object.properties.logo.description.url,
               wallet: object.properties.wallet.description,
             });

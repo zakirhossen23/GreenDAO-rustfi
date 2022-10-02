@@ -143,7 +143,7 @@ export default function Login() {
     <>
       <Head>
         <title>Login</title>
-        <meta name="description" content="Hera - Login" />
+        <meta name="description" content="GreenDAO - Login" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>

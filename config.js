@@ -1,4 +1,3 @@
-const CONTRACT_NAME =  'hera-near.testnet'; /* TODO: fill this in! */
 
 function getConfig () {
 

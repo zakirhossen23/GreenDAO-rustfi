@@ -37,6 +37,13 @@ export default function CreateGoal() {
   });
 
 
+  const [EndDate, EndDateInput] = UseFormInput({
+    defaultValue: "",
+    type: "datetime-local",
+    placeholder: "End date",
+    id: "enddate",
+  });
+
   const [Budget, BudgetInput] = UseFormInput({
     defaultValue: "",
     type: "text",
@@ -59,7 +66,7 @@ export default function CreateGoal() {
   async function CheckTransaction() {
     let params = (new URL(window.location)).searchParams;
     if (params.get("transactionHashes") !== null) {
-      window.location.href = "/daos";
+      window.location.href = `/daos/dao?[${id}]`;
     }
   }
  
@@ -100,6 +107,10 @@ export default function CreateGoal() {
           type: "string",
           description: Budget,
         },
+        End_Date: {
+          type: 'string',
+          description: EndDate,
+        },
         StructureLeft:{
           type: "string",
           description: Object.values(StructureLeft),
@@ -107,7 +118,11 @@ export default function CreateGoal() {
         StructureRight:{
           type: "string",
           description: Object.values(StructureRight),
-        },
+        }, 
+        wallet: {
+          type: "string",
+          description: window.accountId,
+        },       
         logo: {
           type: "string",
           description: allFiles[0],
@@ -219,6 +234,12 @@ export default function CreateGoal() {
             <div className="flex-1">
               <h6>Budget</h6>
               {BudgetInput}
+            </div>
+          </div>  
+           <div className="flex gap-8 w-full">
+            <div className="flex-1">
+              <h6>End Date</h6>
+              {EndDateInput}
             </div>
           </div>
           <div className="flex flex-col gap-2">

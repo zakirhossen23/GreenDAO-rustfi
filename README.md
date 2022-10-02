@@ -22,7 +22,7 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 # How everything works
 ## Creating charity event and Donating NFT
-On Hera an event manager can create an auction charity event with the deadline and wallet address. It will ask Universal Profile Extension to confirm. After that, all the created charity eevnt will show in donation page. On any of these charity event users can go into Auction page. There donors can donate(or mint) their NFTs with a given bid price to that charity event. So, that other donors can bid on that NFT. 
+On GreenDAO an event manager can create an auction charity event with the deadline and wallet address. It will ask Universal Profile Extension to confirm. After that, all the created charity eevnt will show in donation page. On any of these charity event users can go into Auction page. There donors can donate(or mint) their NFTs with a given bid price to that charity event. So, that other donors can bid on that NFT. 
 
 ## Distributing the NFTs to the highest bidders
 When the auction deadline is ended then the charity event status shows "Waiting for NFTs release". At that moment, only the owner can view this auction page. And owner can finish the Auction and transfer the NFTs to won highest bidders by clicking "Distribute NFTs". It will ask for UP confirmation. After aporving it all the money will be transfered to the Event wallet address. And the Auction will be end. 
@@ -45,4 +45,4 @@ Here address is the user wallet address. On this page user can see user details 
 
 ### Challanges
 ## Fashion, Art, Music, Entertainment - Open Category
-On Hera, User can donate Fashion, Art, Music, Entertainment images or videos as NFT on Charity Event. And all the money will go to event manager wallet. And thus any Charity event manager can earn donation from users using Hera. And it is also empowering artists, designers, musicians, creatives, fans etc person to promote their work as NFT. 
+On GreenDAO, User can donate Fashion, Art, Music, Entertainment images or videos as NFT on Charity Event. And all the money will go to event manager wallet. And thus any Charity event manager can earn donation from users using GreenDAO. And it is also empowering artists, designers, musicians, creatives, fans etc person to promote their work as NFT. 
