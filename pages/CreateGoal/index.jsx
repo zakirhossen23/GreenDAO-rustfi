@@ -14,6 +14,7 @@ import { Checkbox } from "@heathmont/moon-core-tw";
 
 export default function CreateGoal() {
   const [GoalImage, setGoalImage] = useState([]);
+  const [GoalRules, setGoalRules] = useState([]);
   if (isServer()) return null;
 
   //Storage API for images and videos
@@ -50,16 +51,28 @@ export default function CreateGoal() {
     placeholder: "Budget",
     id: "goal",
   });
+ const [Qoutation1, Qoutation1Input] = UseFormInput({
+    defaultValue: "",
+    type: "text",
+    placeholder: "Give link to quotation ",
+    id: "qoutation1",
+  }); 
+  const [Qoutation2, Qoutation2Input] = UseFormInput({
+    defaultValue: "",
+    type: "text",
+    placeholder: "Give total prize of the quatation",
+    id: "qoutation2",
+  });
 
-  let StructureLeft={
-    0:"Representives Berlin",
-    1:"Community",
-    2:"Childeren"
-  } 
-  let StructureRight={
-    0:"20%",
-    1:"70%",
-    2:"10%"
+  let StructureLeft = {
+    0: "Representives Berlin",
+    1: "Community",
+    2: "Childeren"
+  }
+  let StructureRight = {
+    0: "20%",
+    1: "70%",
+    2: "10%"
   }
   let id = -1;
 
@@ -70,7 +83,7 @@ export default function CreateGoal() {
       window.location.href = `/daos`;
     }
   }
- 
+
   CheckTransaction();
 
 
@@ -102,7 +115,7 @@ export default function CreateGoal() {
         Description: {
           type: "string",
           description: GoalDescription,
-        },    
+        },
         Budget: {
           type: "string",
           description: Budget,
@@ -111,30 +124,30 @@ export default function CreateGoal() {
           type: 'string',
           description: EndDate,
         },
-        StructureLeft:{
+        StructureLeft: {
           type: "string",
           description: Object.values(StructureLeft),
         },
-        StructureRight:{
+        StructureRight: {
           type: "string",
           description: Object.values(StructureRight),
-        }, 
+        },
         wallet: {
           type: "string",
           description: window.accountId,
-        },       
+        },
         logo: {
           type: "string",
           description: allFiles[0],
-        },       
+        },
         allFiles,
       },
     };
     console.log("======================>Creating Goal");
     try {
-     
+
       // Creating Goal in Rust Smart contract
-      await window.nearcontract.create_goal({ "_goal_uri": JSON.stringify(createdObject),"_dao_id": Number(id) }, "60000000000000")
+      await window.nearcontract.create_goal({ "_goal_uri": JSON.stringify(createdObject), "_dao_id": Number(id) }, "60000000000000")
 
     } catch (error) {
       console.error(error);
@@ -235,8 +248,8 @@ export default function CreateGoal() {
               <h6>Budget</h6>
               {BudgetInput}
             </div>
-          </div>  
-           <div className="flex gap-8 w-full">
+          </div>
+          <div className="flex gap-8 w-full">
             <div className="flex-1">
               <h6>End Date</h6>
               {EndDateInput}
@@ -244,7 +257,7 @@ export default function CreateGoal() {
           </div>
           <div className="flex flex-col gap-2">
             <h6>Content</h6>
-            <div style={{borderColor: '#6578F2'}} className="border-4 border-dashed content-start flex flex-row flex-wrap gap-4 h-full inset-0 justify-start m-auto overflow-auto p-1 relative text-center text-white w-full z-20">
+            <div style={{ borderColor: '#6578F2' }} className="border-4 border-dashed content-start flex flex-row flex-wrap gap-4 h-full inset-0 justify-start m-auto overflow-auto p-1 relative text-center text-white w-full z-20">
               <input
                 className="file-input"
                 hidden
@@ -304,31 +317,51 @@ export default function CreateGoal() {
             <h6>Structure</h6>
             <div className="flex gap-8">
               <div style={{ boxShadow: '#907979 0 0 10px 0px' }} className="bg-white rounded-lg flex flex-col p-2  pb-2 w-48 pb-0">
-                <h6 onInput={e=>{StructureLeft[0]=e.currentTarget.innerText}} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                <h6 onInput={e => { StructureLeft[0] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
                   Representives Berlin
-                </h6>  
-                <h6  onInput={e=>{StructureLeft[1]=e.currentTarget.innerText}} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
-                Community
                 </h6>
-                <h6  onInput={e=>{StructureLeft[2]=e.currentTarget.innerText}} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
-                Childeren
+                <h6 onInput={e => { StructureLeft[1] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                  Community
+                </h6>
+                <h6 onInput={e => { StructureLeft[2] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                  Childeren
                 </h6>
               </div>
               <div style={{ boxShadow: '#907979 0 0 10px 0px' }} className="bg-white rounded-lg flex flex-col p-2  pb-2 w-48 pb-0">
-               
-                <h6  onInput={e=>{StructureRight[0]=e.currentTarget.innerText}} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
-                20%
-                </h6>  
-                <h6  onInput={e=>{StructureRight[1]=e.currentTarget.innerText}} contentEditable="true"  className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
-                70%
+
+                <h6 onInput={e => { StructureRight[0] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                  20%
                 </h6>
-                <h6  onInput={e=>{StructureRight[2]=e.currentTarget.innerText}} contentEditable="true"  className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
-                10%
+                <h6 onInput={e => { StructureRight[1] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                  70%
+                </h6>
+                <h6 onInput={e => { StructureRight[2] = e.currentTarget.innerText }} contentEditable="true" className="border-2 hover:bg-[#d1d5db] hover:cursor-pointer bg-white flex hover:bg-gray-200 items-center p-2 rounded-lg w-full">
+                  10%
                 </h6>
               </div>
             </div>
           </div>
+          <div className="flex flex-col gap-2">
+            <h6>Rules</h6>
 
+
+            <div className="content-start gap-8 flex flex-row flex-wrap h-full justify-start ">
+              <div className="flex gap-8 w-full">
+                <div className="flex-1">                
+                  {Qoutation1Input}
+                </div>
+                <div className="flex-1">                
+                  {Qoutation2Input}
+                </div>
+              </div>
+
+              <Button>
+                <ControlsPlus className="text-moon-24" />
+                Add smart contract
+              </Button>
+            </div>
+
+          </div>
           <CreateGoalBTN />
         </div>
         <div className={styles.divider}></div>

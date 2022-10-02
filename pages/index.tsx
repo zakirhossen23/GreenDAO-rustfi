@@ -6,7 +6,7 @@ import { Header } from "../components/layout/Header";
 import styles from "./Home.module.css";
 import section2Image from "/public/home/section-2-img.jpg";
 import section1Image from "/public/home/section-1-img.jpg";
-import logo from "/public/logo-lg.png";
+import logo from "/public/Logo.svg";
 
 declare let window: any;
 export default function Welcome() {

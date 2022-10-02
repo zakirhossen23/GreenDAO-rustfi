@@ -189,9 +189,14 @@ pub fn ideas_uri(&self,ideas_id:&i32)-> String{
 //Contract
 pub fn reset_all(&mut self) {  
   self._dao_ids = 0;
-
+  self._goal_ids = 0;
+  self._ideas_ids = 0;
+  self._ideas_vote_ids = 0;
   //Variables
-  self._dao_uris = HashMap::new();
+  self._dao_uris= HashMap::new();
+  self._goal_uris= HashMap::new();
+  self._ideas_uris= HashMap::new();
+  self.all_goal_ideas_votes= HashMap::new();
 }
 
 
