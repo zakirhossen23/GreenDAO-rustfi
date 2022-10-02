@@ -14,11 +14,13 @@ pub struct Contract {
   _dao_ids: i32,
   _goal_ids: i32,
   _ideas_ids: i32,
+  _ideas_vote_ids: i32,
 
   //Variables Multiples
-   _dao_uris: HashMap<i32, Vec<String>>,           //_dao_ids          => (Dao)    Dao Wallet + Dao URI   + Finished
-   _goal_uris: HashMap<i32, Vec<String>>,          //_goal_ids         => (Goal)   Dao ID + Goal URI          
-   _ideas_uris: HashMap<i32, Vec<String>>,         //_ideas_ids        => (Ideas)  Goal ID + Ideas URI          
+   _dao_uris: HashMap<i32, Vec<String>>,                    //_dao_ids          => (Dao)    Dao Wallet + Dao URI   + Finished
+   _goal_uris: HashMap<i32, Vec<String>>,                   //_goal_ids         => (Goal)   Dao ID + Goal URI          
+   _ideas_uris: HashMap<i32, Vec<String>>,                  //_ideas_ids        => (Ideas)  Goal ID + Ideas URI          
+   all_goal_ideas_votes: HashMap<i32, Vec<String>>,         //_ideas_vote_ids   => (Vote)   Goal ID + Ideas ID + Wallet          
   
 }
 
@@ -29,11 +31,13 @@ impl Default for Contract {
       _dao_ids : 0,
       _goal_ids : 0,
       _ideas_ids : 0,
+      _ideas_vote_ids : 0,
 
       //Variables Multiples
       _dao_uris: HashMap::new(), 
       _goal_uris: HashMap::new(), 
       _ideas_uris: HashMap::new(), 
+      all_goal_ideas_votes: HashMap::new(), 
     }
   }
 }
@@ -157,6 +161,29 @@ pub fn ideas_uri(&self,ideas_id:&i32)-> String{
   let json = serde_json::to_string(&self._ideas_uris.get(ideas_id)).unwrap();
   return json;
 }
+
+
+  //Voting
+  pub fn create_goal_ideas_vote(&mut self, goal_id: &i32,ideas_id: &i32,wallet: String ) -> i32 {
+    let mut stuff : Vec<String> = Vec::new();
+    stuff.push(goal_id.to_string());
+    stuff.push(ideas_id.to_string());
+    stuff.push(wallet.to_string());
+  
+    self.all_goal_ideas_votes.insert(self.all_goal_ideas_votes.len() as i32,stuff);
+    self._ideas_vote_ids += 1;
+    return self._ideas_vote_ids ;
+  }
+  pub fn get_ideas_votes_from_goal(&self, goal_id: &i32,ideas_id: &i32)->String{
+     //Filtering all the Votes by containing Grant id and ideas id
+     let new: HashMap<&i32, &Vec<String>> =  self.all_goal_ideas_votes.iter()
+     .filter(|(_id, value)| value[0].to_string() == goal_id.to_string() && value[1].to_string() == ideas_id.to_string() ).collect();
+   
+     //Getting only the Vote URIs from the filtered
+     let vote_uris_list:Vec<&String> = new.iter().map(|(_id,value)| {return &value[2]} ).collect();
+  
+     return serde_json::to_string(&vote_uris_list).unwrap();
+  }
 
 
 //Contract

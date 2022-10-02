@@ -40,14 +40,6 @@ export default function CreateIdeas() {
 
   let id = -1;
 
-  async function CheckTransaction() {
-    let params = (new URL(window.location)).searchParams;
-    if (params.get("transactionHashes") !== null) {
-      window.location.href = `daos/dao/goal?[${id}]`;
-    }
-  }
- 
-  CheckTransaction();
 
 
 
@@ -142,6 +134,15 @@ export default function CreateIdeas() {
       id = m[1];
     }
   }
+  async function CheckTransaction() {
+    let params = (new URL(window.location)).searchParams;
+    if (params.get("transactionHashes") !== null) {
+      window.location.href = `daos/dao/goal?[${id}]`;
+    }
+  }
+ 
+  CheckTransaction();
+
   function AddBTNClick(ideas) {
     //Clicking on +(Add) Function
     var IdeasImagePic = document.getElementById("IdeasImage");

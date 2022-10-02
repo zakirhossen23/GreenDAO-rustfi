@@ -19,11 +19,9 @@ export default function GrantIdeas() {
   const [eventId, setIdeasId] = useState(-1);
   const [list, setList] = useState([]);
   const [imageList, setimageList] = useState([]);
-  const [IdeasURI, setIdeasURI] = useState({ ideasId: "", Title: "", Description: "", wallet: "", logo: "", End_Date:"",allfiles: [] });
+  const [IdeasURI, setIdeasURI] = useState({ ideasId: "", Title: "", Description: "", wallet: "", logo: "", End_Date:"",voted:0, allfiles: [] });
 
   const [AccountAddress, setAccountAddress] = useState("");
-
-  const [ShowChooseProjectModal, setShowChooseProjectModal] = useState(false);
 
   const formatter = new Intl.NumberFormat("en-US", {
     //Converting number into comma version
@@ -117,49 +115,11 @@ export default function GrantIdeas() {
         id = Number(id);
 
         const allUri = JSON.parse(await window.nearcontract.ideas_uri({ "ideas_id": Number(id) })); //Getting total ideas (Number)
-        console.log(allUri);
         const ideaURI = JSON.parse(allUri[1]);
         Goalid = Number(allUri[0]);
         const goalURI = JSON.parse(JSON.parse(await window.nearcontract.goal_uri({ "goal_id": Goalid }))[1]); //Getting total goal (Number)
 
-
-
-        // const arr = [];
-        // const totalProjects = JSON.parse(await window.nearcontract.get_project_search_from_grant_event({ grant_id: id })); //Getting total Projects of that event
-
-        // for (let i = 0; i < Object.keys(totalProjects).length; i++) {
-        //   //Getting all Projects
-        //   const obj = await JSON.parse(await totalProjects[i])[1];
-
-        //   let object = {};
-        //   try {
-        //     object = await JSON.parse(obj);
-        //   } catch { }
-        //   if (object.title) {
-        //     const ProjectId = Number(await window.nearcontract.get_eventid_from_eventuri({ event_uri: obj })); //Getting Project id from Project URI
-        //     const votes = JSON.parse(await window.nearcontract.get_grant_votes_from_grant({ grant_id: id, project_id: ProjectId }));
-        //     let isvoted = false;
-        //     for (let index = 0; index < votes.length; index++) {
-        //       const element = votes[index];
-        //       if (element === window.accountId) {
-        //         isvoted = true;
-        //       }
-        //     }
-
-        //     arr.push({
-        //       Id: ProjectId,
-        //       name: object.properties.Title.description,
-        //       description: object.properties.Description.description,
-        //       goal: Number(object.properties.Goal.description),
-        //       image: object.properties.logo.description.url,
-        //       votecount: votes.length,
-        //       isVoted: isvoted,
-        //     });
-        //   }
-        // }
-        //Setting these data into variables
-        // setList(arr);     
-
+        const Allvotes = JSON.parse(await window.nearcontract.get_ideas_votes_from_goal({ "goal_id": Goalid,"ideas_id": Number(id) })); //Getting total goal (Number)
 
         setIdeasURI({
           ideasId: id,
@@ -168,6 +128,7 @@ export default function GrantIdeas() {
           wallet: ideaURI.properties.wallet.description,
           logo: ideaURI.properties.logo.description.url,
           End_Date:goalURI.properties.End_Date?.description,
+          voted:Object.keys(Allvotes).length,
           allfiles: ideaURI.properties.allFiles
         })
 
@@ -208,12 +169,9 @@ export default function GrantIdeas() {
 
 
 
-  function submitProject() {
-    setShowChooseProjectModal(true);
-  }
-  async function VoteProject(projectid) {
-    await window.nearcontract.create_grant_vote({ "grant_id": Number(eventId), "project_id": Number(projectid), "wallet": window.accountId }, "60000000000000");
 
+  async function VoteIdees() {
+    await window.nearcontract.create_goal_ideas_vote({ "goal_id": Goalid, "ideas_id": Number(id), "wallet": window.accountId }, "60000000000000");
   }
 
 
@@ -234,12 +192,13 @@ export default function GrantIdeas() {
             </a>
           </div>
           <p>{IdeasURI.Description}</p>
+          <p>Voted: {IdeasURI.voted}</p>
         </div>
         <div className={`${styles.tabtitle} flex gap-4 justify-start`}>
           <a className={`tab block px-3 cursor-pointer py-2 text-3xl text-[#0000ff]`} >
             Ideas
           </a>
-          <Button data-element-id="btn_donate" style={{width: '147px'}} data-analytic-event-listener="true" onClick={() => { submitProject() }}>
+          <Button data-element-id="btn_donate" style={{width: '147px'}} data-analytic-event-listener="true" onClick={() => { VoteIdees() }}>
             Vote
           </Button>
         </div>

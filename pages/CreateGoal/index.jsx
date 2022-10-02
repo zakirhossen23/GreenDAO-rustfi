@@ -63,15 +63,15 @@ export default function CreateGoal() {
   }
   let id = -1;
 
+
   async function CheckTransaction() {
     let params = (new URL(window.location)).searchParams;
     if (params.get("transactionHashes") !== null) {
-      window.location.href = `/daos/dao?[${id}]`;
+      window.location.href = `/daos`;
     }
   }
  
   CheckTransaction();
-
 
 
   //Function after clicking Create Goal Button
