@@ -50,19 +50,7 @@ export default function DAOs() {
           //total dao number Iteration
           const object = JSON.parse(totalDao[i][1]);
      
-          if (object) {
-            //Checking if the dao date is expired or not
-            var c = new Date(object.properties.End_Date.description).getTime();
-            var n = new Date().getTime();
-            var d = c - n;
-            var s = Math.floor((d % (1000 * 60)) / 1000);
-            if (
-              s.toString().includes("-") &&
-              object.properties.wallet.description !==
-                window.walletConnection.getAccountId()
-            ) {
-              continue;
-            }
+          if (object) {         
 
             arr.push({
               //Pushing all data into array
@@ -160,10 +148,8 @@ export default function DAOs() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between align-center">
-                  <div className="flex items-center font-bold">
-                    {LeftDate(listItem.End_Date, listItem.status)} left
-                  </div>
+                <div className="flex align-center flex justify-end align-center">
+                 
                   <NavLink href={`/daos/dao?[${listItem.daoId}]`}>
                     <Button iconleft>
                       <ControlsChevronRight />

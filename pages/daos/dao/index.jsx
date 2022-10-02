@@ -62,21 +62,21 @@ export default function DAO() {
 
         const daoURI = JSON.parse(JSON.parse(await window.nearcontract.dao_uri({ "dao_id": Number(id) }))[1]); //Getting total dao (Number)
 
-        const totalGoals =JSON.parse(await window.nearcontract.get_all_goals_by_dao_id({"_dao_id": Number(id)})); //Getting total dao (Number)
+        const totalGoals = JSON.parse(await window.nearcontract.get_all_goals_by_dao_id({ "_dao_id": Number(id) })); //Getting total dao (Number)
         const arr = [];
         for (let i = 0; i < Object.keys(totalGoals).length; i++) {
           //total dao number Iteration
           const goalid = Object.keys(totalGoals[i])[i];
-          const object =JSON.parse(totalGoals[goalid]);
+          const object = JSON.parse(totalGoals[goalid]);
           if (object) {
-           
+
             arr.push({
               //Pushing all data into array
               goalId: goalid,
               Title: object.properties.Title.description,
               Description: object.properties.Description.description,
               Budget: object.properties.Budget.description,
-              End_Date: daoURI.properties.End_Date.description,
+              End_Date: object.properties.End_Date.description,
               StructureLeft: object.properties.StructureLeft.description,
               StructureRight: object.properties.StructureRight.description,
               logo: object.properties.logo.description.url
@@ -149,7 +149,7 @@ export default function DAO() {
             <NavLink href="?q=This Month">
               <a className="DonationBarLink tab block px-3 py-2">This Month</a>
             </NavLink>
-            {(DaoURI.wallet === window.accountId)?(<> <NavLink href={`/CreateGoal?[${daoId}]`}>
+            {(DaoURI.wallet === window.accountId) ? (<> <NavLink href={`/CreateGoal?[${daoId}]`}>
               <Button style={{ width: '135px', position: 'absolute', right: '1rem' }} iconLeft>
                 <ControlsPlus className="text-moon-24" />
                 <div className="card BidcontainerCard">
@@ -158,8 +158,8 @@ export default function DAO() {
                   </div>
                 </div>
               </Button>
-            </NavLink></>):(<></>)}
-           
+            </NavLink></>) : (<></>)}
+
           </div>
 
         </div>
@@ -183,12 +183,11 @@ export default function DAO() {
                     <div>Budget {listItem.Budget} NEAR</div>
                   </div>
                 </div>
-                <div className="flex justify-between align-center"> 
+                <div className="flex justify-between align-center">
                 <div className="flex items-center font-bold">
-                    {listItem.StructureLeft.map((item,id)=>(<>
-                      <div className="mr-4"> {item}</div>
-                    </>))}
-                  </div>                 
+                    {LeftDate(listItem.End_Date, listItem.status)} left
+                  </div>
+                  
                   <NavLink href={`/daos/dao/goal?[${listItem.goalId}]`}>
                     <Button iconleft>
                       <ControlsChevronRight />

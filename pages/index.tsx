@@ -51,9 +51,12 @@ export default function Welcome() {
           Empower your Community with Trust
           </h1>
           <p className="py-4">
-            Donation events as a service, to create the most easy, transparent
-            and fun NFT charity auction, by using the power of Near to help
-            organisations raise additional support for a better world.
+            GreenDAO is a platform that empowers your community to take more
+            control over the issues that affect you. Join GreenDAO and read
+            about the goals for your community and the funds that are available
+            to reach these goals. You can add your own ideas or vote on the
+            ideas of your neighbors. The most popular solutions will be implemented,
+            benefitting the whole community. GreenDAO gives everybody a vote and a voice.
           </p>
           <div className="pt-4">
             <Button onClick={donateCLICK}>Let’s make decisions</Button>
@@ -73,9 +76,12 @@ export default function Welcome() {
           </div>
           <h1 className="text-moon-32 font-bold pb-4">Empower your Community with Trust</h1>
           <p className="py-4">
-            Donation events as a service, to create the most easy, transparaent
-            and fun NFT charity auction, by using the power of Near to help
-            organisations raise additional support for a better world.
+          GreenDAO is a platform that empowers your community to take more
+            control over the issues that affect you. Join GreenDAO and read
+            about the goals for your community and the funds that are available
+            to reach these goals. You can add your own ideas or vote on the
+            ideas of your neighbors. The most popular solutions will be implemented,
+            benefitting the whole community. GreenDAO gives everybody a vote and a voice.
           </p>
           <div className="pt-4">
             <Button onClick={CreateProjectsCLICK}>Let’s make decisions</Button>

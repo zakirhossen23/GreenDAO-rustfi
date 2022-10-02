@@ -125,9 +125,9 @@ export default function Login() {
     }
   }
   async function onClickConnectNear() {
-    // 'hera-near.testnet',
+    // 'greendo-1.testnet',
     window.walletConnection.requestSignIn(
-      'hera-near.testnet',
+      'greendo-1.testnet',
       'GreenDao'
     );
   }

@@ -228,10 +228,7 @@ export default function CreateDao() {
               <h6>Start Date</h6>
               {StartDateInput}
             </div>
-            <div className="flex-1">
-              <h6>End Date</h6>
-              {DaoDateInput}
-            </div>
+           
           </div>
    
           <div className="flex flex-col gap-2">
